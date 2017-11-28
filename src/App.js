@@ -1,32 +1,40 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
-import SelectedForecast from './components/SelectedForecast';
-import DailyForecast from './components/DailyForecast';
-import WeeklyForecast from './components/WeeklyForecast';
+import SearchBar from './components/SearchBar';
+import ForecastContainer from './components/ForecastContainer';
+import ApiHandler from './components/ApiHandler';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    let apiCall = {
-      city: 'Toronto'
-    };
+    const d = new Date();
+    const today  = `${d.toString().substr(0,3)} ${d.toLocaleString().substr(0,10)}`;
+
     this.state = {
-      city: apiCall.city,
+      city: null,
+      forecast: null,
+      dailyForecast: [],
+      today: today,
       selected: null
     };
   }
+
+  updateForecast = (obj) => {this.setState({
+      city: obj.city,
+      forecast: obj.forecast,
+      dailyForecast: obj.dailyForecast
+    });
+    console.log('app:', this.state);
+  }
+
   render() {
-    console.log(this.state.apiCall);
     return (
       <div className="App">
         <Header city={this.state.city} />
-        {this.state.selected ? (
-          <SelectedForecast city={this.state.city} selected={this.state.selected} />
-          ):(
-          <DailyForecast city={this.state.city}/>
-        )}
-        <WeeklyForecast city={this.state.city}/>
+        <SearchBar apiCall={this.state.city} />
+        <ForecastContainer today={this.state.today} forecast={this.state.forecast} selected={this.state.selected} city={this.state.city}/>
+        <ApiHandler updateForecast={this.updateForecast} />
       </div>
     );
   }

@@ -4,7 +4,7 @@ class DailyForecast extends Component {
   render() {
     return (
       <div>
-        <h1>Today {this.props.city}</h1>
+        <h2>{this.props.today}</h2>
       </div>
     );
   }
