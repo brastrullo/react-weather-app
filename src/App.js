@@ -15,6 +15,7 @@ class App extends Component {
       city: null,
       forecast: null,
       dailyForecast: [],
+      avgPressure: null,
       today: today,
       selected: null
     };
@@ -23,7 +24,8 @@ class App extends Component {
   updateForecast = (obj) => {this.setState({
       city: obj.city,
       forecast: obj.forecast,
-      dailyForecast: obj.dailyForecast
+      dailyForecast: obj.dailyForecast,
+      avgPressure: obj.avgPressure,
     });
     console.log('app:', this.state);
   }

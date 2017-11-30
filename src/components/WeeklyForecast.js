@@ -1,39 +1,55 @@
 import React, { Component } from 'react';
+import ApiHandler from './ApiHandler';
 
 class WeeklyForecast extends Component {
   constructor(props) {
     super(props);
 
-    let week = this.props.forecast;
     this.state = {
-      week: week
+      forecast: []
     };
-
-    // console.log(this.state.week);
   }
+
   forecastArray = () => {
+    const forecast = this.state.forecast;
     return (
-      // week.map(obj => <li>asdf</li>)
-      <li>asdf</li>
+      forecast.map((n,i) =>
+        <li key={`day${i}`}>
+            <p>{n.day}</p>
+            {this.dayArray(n.info)}
+        </li>
+      )
     );
   }
+
+  dayArray = (day) => { 
+    return (
+      day.map((n,i) =>
+        <ul key={`i${i}`}>
+          <li>
+            <div>
+              <p>{n.time}</p>
+              <p>{n.description}</p>
+              <p>{n.temp}</p>
+            </div>
+          </li>
+        </ul>
+      )
+    );
+  }
+
+  updateForecast = (obj) => {this.setState({forecast: obj.forecast})};
 
   render() {
     return (
       <div>
         <h2>Weekly Forecast</h2>
-          <ul className="Contact-containers">{this.forecastArray()}</ul>
+        <p>Average Amostpheric Pressure for week: {this.props.avgPressure}</p>
+        <ul className="Contact-containers">{this.forecastArray()}</ul>
+        <ApiHandler updateForecast={this.updateForecast} />
       </div>
     );
   }
 }
 
 export default WeeklyForecast;
-
-// week.map(obj =>
-//   <li key={obj.id} id={obj.id} className={"Contact-item " + ((this.props.selected === obj) ? "selected" : "")} onClick={() => this.selectContact(obj.id)}>
-//     {this.props.selected === obj && <div className='Profile-pic'>{obj.contactName.charAt(0)}</div>}
-//     {obj.contactName}
-//     {this.props.selected === obj && <ContactOptions contact={this.props.selected} handleCall={this.props.callContact}/>}
-//   </li>;
-// );
