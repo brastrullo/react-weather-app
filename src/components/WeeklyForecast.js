@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-import ApiHandler from './ApiHandler';
+import ForecastTemplate from './ForecastTemplate';
 
 class WeeklyForecast extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      forecast: []
-    };
+  componentWillMount() {
+    this.forecastArray();
   }
 
   forecastArray = () => {
-    const forecast = this.state.forecast;
+    const forecast = this.props.forecast;
     return (
       forecast.map((n,i) =>
         <li key={`day${i}`}>
-            <p>{n.day}</p>
+            <p>{n.weekday}</p>
             {this.dayArray(n.info)}
         </li>
       )
@@ -27,18 +23,13 @@ class WeeklyForecast extends Component {
       day.map((n,i) =>
         <ul key={`i${i}`}>
           <li>
-            <div>
-              <p>{n.time}</p>
-              <p>{n.description}</p>
-              <p>{n.temp}</p>
-            </div>
+            <p>{n.time}</p>
+            <ForecastTemplate info={n} />
           </li>
         </ul>
       )
     );
   }
-
-  updateForecast = (obj) => {this.setState({forecast: obj.forecast})};
 
   render() {
     return (
@@ -46,7 +37,6 @@ class WeeklyForecast extends Component {
         <h2>Weekly Forecast</h2>
         <p>Average Amostpheric Pressure for week: {this.props.avgPressure}</p>
         <ul className="Contact-containers">{this.forecastArray()}</ul>
-        <ApiHandler updateForecast={this.updateForecast} />
       </div>
     );
   }

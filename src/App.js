@@ -12,8 +12,8 @@ class App extends Component {
     const today  = `${d.toString().substr(0,3)} ${d.toLocaleString().substr(0,10)}`;
 
     this.state = {
-      city: null,
-      forecast: null,
+      city: "Toronto,CA",
+      forecast: [],
       dailyForecast: [],
       avgPressure: null,
       today: today,
@@ -21,22 +21,25 @@ class App extends Component {
     };
   }
 
-  updateForecast = (obj) => {this.setState({
-      city: obj.city,
-      forecast: obj.forecast,
-      dailyForecast: obj.dailyForecast,
-      avgPressure: obj.avgPressure,
-    });
-    console.log('app:', this.state);
+  componentWillMount() {
+    this.updateForecast();
   }
+
+  updateForecast = (obj) => {this.setState(obj)};
 
   render() {
     return (
       <div className="App">
         <Header city={this.state.city} />
         <SearchBar apiCall={this.state.city} />
-        <ForecastContainer today={this.state.today} forecast={this.state.forecast} selected={this.state.selected} city={this.state.city}/>
-        <ApiHandler updateForecast={this.updateForecast} />
+        <ForecastContainer 
+          today={this.state.today} 
+          state={this.state} 
+          dailyForecast={this.state.dailyForecast} 
+          forecast={this.state.forecast} selected={this.state.selected} 
+          city={this.state.city} 
+        />
+        <ApiHandler city={this.state.city} updateForecast={this.updateForecast} />
       </div>
     );
   }

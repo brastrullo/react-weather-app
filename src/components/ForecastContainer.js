@@ -9,11 +9,11 @@ class ForecastContainer extends Component {
       <div>
         <h1>{this.props.city}</h1>
         {!typeof this.props.selected == null ? (
-          <SelectedForecast city={this.props.city} selected={this.props.selected} />
+          <SelectedForecast selected={this.props.selected} />
           ):(
-          <DailyForecast dailyForecast={this.props.dailyForecast} today={this.props.today} city={this.props.city} />
+          <DailyForecast dailyForecast={this.props.dailyForecast} />
         )}
-        <WeeklyForecast forecast={this.props.forecast} city={this.props.city} />
+        <WeeklyForecast forecast={this.props.forecast} />
       </div>
     );
   }
