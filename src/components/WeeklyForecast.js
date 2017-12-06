@@ -3,41 +3,60 @@ import ForecastTemplate from './ForecastTemplate';
 
 class WeeklyForecast extends Component {
   componentWillMount() {
-    this.forecastArray();
+    this.detailedForecastArray();
   }
 
-  forecastArray = () => {
+  detailedForecastArray = () => {
     const forecast = this.props.forecast;
     return (
       forecast.map((n,i) =>
-        <li key={`day${i}`}>
-            <p>{n.weekday}</p>
-            {this.dayArray(n.info)}
+        <li key={`day${i}`} className="Days-container">
+            <p className="Day-header">{n.weekday}</p>
+            <ul className="Day-item">{this.dayArray(n.info)}</ul>
         </li>
       )
     );
   }
 
-  dayArray = (day) => { 
+  dayArray = (day) => {
     return (
       day.map((n,i) =>
-        <ul key={`i${i}`}>
-          <li>
-            <p>{n.time}</p>
-            <ForecastTemplate info={n} />
-          </li>
-        </ul>
+        <li key={`i${i}`} className="Forecast-item">
+          <p className="Forecast-time-header">{n.time}</p>
+          <ForecastTemplate className="Weekly-forecast-template" info={n} />
+        </li>
       )
     );
   }
 
+  simpleForecast = () => {
+    const forecast = this.props.forecast;
+
+    // forecast.filter((n,i) => {
+
+    // });
+    console.log(forecast.info)
+    // return (
+    //   forecast.map((n,i) =>
+    //     <li key={`day${i}`} className="Days-container">
+    //         <p className="Day-header">{n.weekday}</p>
+    //         <ul className="Day-item">{this.dayArray(n.info)}</ul>
+    //     </li>
+    //   )
+    // );
+  }
+
   render() {
     return (
-      <div>
-        <h2>Weekly Forecast</h2>
-        <p>Average Amostpheric Pressure for week: {this.props.avgPressure}</p>
-        <ul className="Contact-containers">{this.forecastArray()}</ul>
-      </div>
+      <section className="Weekly-forecast-section">
+        <h2 className="Weekly-header">Forecast for Next 5 Days:</h2>
+        <p className="Weekly-kpa">Average Amostpheric Pressure for week: {this.props.avgPressure}</p>
+        {!(this.props.detailedView) ? (
+          <ul className="Weekly-forecast-container">{this.detailedForecastArray()}</ul>
+          ) : (
+          <ul className="Weekly-forecast-container">{this.simpleForecast()}</ul>
+        )}
+      </section>
     );
   }
 }

@@ -36,5 +36,18 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+<!--     <script src="./nedb.min.js"></script>
+    <script>
+      var db = new Nedb({ filename: '../package.json', autoload: true });
+
+      db.find({}, function (err, docs) {
+        console.log("Docs:", docs);
+      });
+
+      console.log(db);
+      db.count({}, function (err, count) {
+        console.log('Count:', count);
+      });
+    </script> -->
   </body>
 </html>

@@ -9,15 +9,15 @@ class DailyForecast extends Component {
 
   dailyForecast = () => {
     const n = this.props.dailyForecast;
-    return <ForecastTemplate info={n} />;
+    return <ForecastTemplate className="Daily-forecast-template" info={n} />;
   }
 
   render() {
     return (
-      <div>
-        <h2>{moment().format("dddd, MMMM Do YYYY")}</h2>
+      <section className="Daily-forecast-section">
+        <h2 className="Daily-forecast-header">{moment().format("dddd, MMMM Do YYYY")}</h2>
         {this.dailyForecast()}
-      </div>
+      </section>
     );
   }
 }

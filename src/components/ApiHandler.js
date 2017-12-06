@@ -15,7 +15,7 @@ class ApiHandler extends Component {
     });
 
     apiCallWeek(city).then(n => {
-      const week = [1,2,3,4].map((el)=> `${moment().add(el,'days').format('YYYY-MM-DD')}`);
+      const week = [1,2,3,4,5].map((el)=> `${moment().add(el,'days').format('YYYY-MM-DD')}`);
       const weekly = [];
       const forecast = (function forecast() {
         week.forEach(day => {
@@ -64,42 +64,19 @@ function formatTemp(k) {
   return `${c}/${f}`;
 }
 
-function formatHour(t) {
-  let h = moment.utc(t).hour();
-  let pm = h <= 23 && h > 12;
-  let am = h <= 12 && h > 1;
-  let formatted;
-
-  switch(true) {
-    case (h === 12):
-      formatted = "12pm";
-      break;
-    case (h === 0):
-      formatted = "12am";
-      break;
-    case (pm):
-      formatted = `${h - 12}pm`;
-      break;
-    case (am):
-      formatted = `${h}am`;
-      break;
-    default:
-      break;
-  }
-  return formatted;
-}
 
 function formatInfo(raw) {
   const n = raw;
   const info = {
     dt: moment.unix(n.dt).format("ddd MMM DD YYYY"),
-    time: formatHour(n.dt_txt),
+    time: moment.unix(n.dt).format("hA"),
     temp: formatTemp(n.main.temp),
     windSpeed: n.wind.speed,
     windTemp: n.wind.deg,
     description: n.weather[0].description,
     humidity: n.main.humidity,
     pressure: n.main.pressure,
+    icon: `http://openweathermap.org/img/w/${n.weather[0].icon}.png`,
   };
   return info
 }

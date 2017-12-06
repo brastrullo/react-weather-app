@@ -1,13 +1,19 @@
 .App {
   text-align: center;
+
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
+.App-icon {
+  animation: App-logo-pulse infinite 20s alternate linear;
   height: 80px;
 }
 
+.App-city {
+  width: 100%;
+}
+
 .App-header {
+  text-align: center;
   background-color: #222;
   height: 150px;
   padding: 20px;
@@ -22,7 +28,62 @@
   font-size: large;
 }
 
+.App-container {
+  display: flex;
+  justify-content: center;
+  flex-flow: nowrap column;
+}
+
+.Search-bar {
+  margin: 0 auto;
+}
+
+.Search-input {
+  width: auto;
+}
+
+.Daily-forecast-section, .Daily-forecast-section {
+  text-align: center;
+}
+
+.Weekly-header, .Weekly-kpa {
+  text-align: center;
+}
+
+.Weekly-forecast-section .Weekly-forecast-container {
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: center;
+}
+
+ul {
+  padding-left: 0;
+  margin: .25em;
+  list-style-type: none;
+}
+
+.Day-header {
+  text-align: center;
+}
+
+.Forecast-time-header {
+  text-align: center;
+  background: darkgrey;
+  color: white;
+}
+
+.Forecast-template {
+  flex-flow: nowrap column;
+  justify-content: center;
+  display: flex;
+}
+
+.Template-icon {
+  text-align: center;
+}
+
+
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from { transform: scale(1); }
+  to { transform: scale(1.5); }
 }

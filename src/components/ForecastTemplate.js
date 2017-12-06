@@ -5,17 +5,21 @@ class ForecastTemplate extends Component {
     const n = this.props.info ? this.props.info : {};
     
     return (
-      <ul>
-        <li>Forecast: {n.description ? n.description : "null"}</li>
-        <li>Wind Speed: {n.windSpeed ? n.windSpeed : "null"}</li>
-        <li>Wind Temp: {n.windTemp ? n.windTemp : "null"}</li>
-        <li>Humidity: {n.humidity ? n.humidity : "null"}</li>
-        <li>Atmospheric Pressure: {n.pressure ? n.pressure : "null"}</li>
+      <ul className="Forecast-template">
+        <li className="Template-icon"><img src={n.icon} alt={n.description} /></li>
+        <li className="Template-item">Forecast: {n.description}</li>
+        <li className="Template-item">Wind Speed: {n.windSpeed}</li>
+        <li className="Template-item">Wind Temp: {n.windTemp}</li>
+        <li className="Template-item">Humidity: {n.humidity}</li>
+        <li className="Template-item">Atmospheric Pressure: {n.pressure}</li>
       </ul>
     );
   }
+
   render() {
-    return <div>{this.template()}</div>;
+    return (
+      (this.props.info ? <div>{this.template()}</div> : <div>Loading...</div>)
+    );
   }
 }
 

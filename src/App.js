@@ -29,9 +29,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App-container">
         <Header city={this.state.city} />
-        <SearchBar apiCall={this.state.city} />
+        <SearchBar apiCall={this.state.city} handleInput={this.handleInput} />
         <ForecastContainer 
           today={this.state.today} 
           state={this.state} 
