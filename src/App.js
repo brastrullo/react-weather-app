@@ -25,7 +25,10 @@ class App extends Component {
     this.updateForecast();
   }
 
-  updateForecast = (obj) => {this.setState(obj)};
+  updateForecast = (obj) => {
+    console.log(obj);
+    this.setState(obj);
+  };
 
   render() {
     return (
@@ -34,7 +37,6 @@ class App extends Component {
         <SearchBar apiCall={this.state.city} handleInput={this.handleInput} />
         <ForecastContainer 
           today={this.state.today} 
-          state={this.state} 
           dailyForecast={this.state.dailyForecast} 
           forecast={this.state.forecast} selected={this.state.selected} 
           city={this.state.city} 

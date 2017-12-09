@@ -78,12 +78,17 @@ ul {
   display: flex;
 }
 
-.Template-icon {
+.t-description {
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.t-icon {
   text-align: center;
 }
 
 
-@keyframes App-logo-spin {
+@keyframes App-logo-pulse {
   from { transform: scale(1); }
   to { transform: scale(1.5); }
 }

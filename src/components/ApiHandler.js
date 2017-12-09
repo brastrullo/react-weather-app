@@ -10,7 +10,7 @@ class ApiHandler extends Component {
     apiCallDay(city).then(n => {
       let info = formatInfo(n);
       info.day = moment().toString().slice(0,3);
-      const obj = {dailyForecast: info, avgPressure: "pressure" + n.main.pressure};
+      const obj = {dailyForecast: info, pressure: n.main.pressure};
       this.props.updateForecast(obj);
     });
 
@@ -58,27 +58,57 @@ const apiCallDay = (city) => {
   .catch(err => console.log('Request failed', err));
 };
 
-function formatTemp(k) {
-  const c = `${Number(k - 273.15).toFixed(1)}\u{00b0}C`;
-  const f = `${Number((5/7)*(k - 273.15) + 32).toFixed(1)}\u{00b0}F`;
-  return `${c}/${f}`;
+function timeText(t) {
+  let text = '';
+  t = parseInt(t, 10);
+  switch (true) {
+    case (t >= 0 && t <= 3):
+      text = 'Late Night';
+      break;
+    case (t >= 4 && t <= 6):
+      text = 'Early Morning';
+      break;
+    case (t >= 7 && t <= 9):
+      text = 'Morning';
+      break;
+    case (t >= 10 && t <= 12):
+      text = 'Noon';
+      break;
+    case (t >= 13 && t <= 15):
+      text = 'Afternoon';
+      break;
+    case (t >= 16 && t <= 18):
+      text = 'Late Afternoon';
+      break;
+    case (t >= 19 && t <= 21):
+      text = 'Evening';
+      break;
+    case (t >= 22 && t <= 24):
+      text = 'Late Evening';
+      break;
+    default:
+      break;
+  }
+  return text;
 }
-
 
 function formatInfo(raw) {
   const n = raw;
   const info = {
     dt: moment.unix(n.dt).format("ddd MMM DD YYYY"),
+    timeText: timeText(moment.unix(n.dt).format("H")),
     time: moment.unix(n.dt).format("hA"),
-    temp: formatTemp(n.main.temp),
+    tempMin: n.main.temp_min,
+    tempMax:n.main.temp_max,
+    temp: n.main.temp,
     windSpeed: n.wind.speed,
-    windTemp: n.wind.deg,
+    windDeg: n.wind.deg,
     description: n.weather[0].description,
     humidity: n.main.humidity,
     pressure: n.main.pressure,
     icon: `http://openweathermap.org/img/w/${n.weather[0].icon}.png`,
   };
-  return info
+  return info;
 }
 
 

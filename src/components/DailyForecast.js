@@ -9,7 +9,7 @@ class DailyForecast extends Component {
 
   dailyForecast = () => {
     const n = this.props.dailyForecast;
-    return <ForecastTemplate className="Daily-forecast-template" info={n} />;
+    return <ForecastTemplate tempFormatC={this.props.tempFormatC} detailedView={this.props.detailedView} className="Daily-forecast-template" info={n} />;
   }
 
   render() {

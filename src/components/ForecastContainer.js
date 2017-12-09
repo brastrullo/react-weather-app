@@ -9,28 +9,34 @@ class ForecastContainer extends Component {
 
     this.state = {
       detailedView: false,
+      tempFormatC: true,
     };
+  }
+
+  tempFormatToggle = (e) => {
+    e.preventDefault();
+    this.setState(prevState => ({ tempFormatC: !prevState.tempFormatC }));
+    console.log(this.state);
   }
 
   handleClick = (e) => {
     e.preventDefault();
-    this.setState(prevState => ({
-      detailedView: !prevState.detailedView
-    }));
-
+    this.setState (prevState => ({ detailedView: !prevState.detailedView }));
+    console.log(this.state.detailedView);
   }
   render() {
     return (
       <div>
+        <button onClick={this.tempFormatToggle}>Format: {this.state.tempFormatC ? 'Celsius' : 'Farenheit'}</button>
         <button onClick={this.handleClick}>
           {this.state.detailedView ? `Show Detailed View \u{25B4}` : `Hide Detailed View \u{25BE}`}
         </button>
         {!typeof this.props.selected == null ? (
           <SelectedForecast selected={this.props.selected} />
           ):(
-          <DailyForecast dailyForecast={this.props.dailyForecast} />
+          <DailyForecast tempFormatC={this.state.tempFormatC} dailyForecast={this.props.dailyForecast} />
         )}
-        <WeeklyForecast detailedView={this.state.detailedView} forecast={this.props.forecast} />
+        <WeeklyForecast tempFormatC={this.state.tempFormatC} detailedView={this.state.detailedView} forecast={this.props.forecast} />
       </div>
     );
   }

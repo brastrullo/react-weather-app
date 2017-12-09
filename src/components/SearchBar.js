@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Package from '../../package.json';
 import Nedb from 'nedb/browser-version/out/nedb.min.js';
 
 class SearchBar extends Component {
@@ -9,7 +8,7 @@ class SearchBar extends Component {
   }
 
   fetchCityList = (query) => {
-    const db = new Nedb({filename: '../../package.json', autoload: true, timestampData: true});
+    const db = new Nedb({filename: '../city.list.min.json', autoload: true, timestampData: true});
 
     // let cityID = null;
 
